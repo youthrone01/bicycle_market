@@ -64,7 +64,7 @@ login(){
     this._mainService.getAllBikes((res)=>{
       var index = Math.floor(Math.random() * res.length);
       this.bike = res[index];
-    })
+    });
   }
 
 }

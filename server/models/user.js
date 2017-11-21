@@ -18,5 +18,12 @@ var BikeSchema = mongoose.Schema({
 	_user: {type: Schema.Types.ObjectId, ref: 'User'},
 },{timestamps: true})
 
+var LoginSchema = mongoose.Schema({
+	email:{type: String, require: true, index: { unique: true }},
+	attempt:{type:Number},
+	allowed_time:{type:Date},
+},{timestamps: true})
+
 mongoose.model('User',UserSchema)
 mongoose.model('Bike',BikeSchema)
+mongoose.model('Login',LoginSchema)
