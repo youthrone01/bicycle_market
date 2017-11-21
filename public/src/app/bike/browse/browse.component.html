@@ -1,0 +1,17 @@
+
+Search: <input (keyup)="searchBike()" name="search" id="search" 
+[(ngModel)]="new_search"  ><br><br>
+
+<div class="list">
+    <div *ngIf="all_bikes" class="bikes">
+        <div *ngFor="let bike of all_bikes; let i = index">
+            <img src="{{bike.imgurl}}">
+            <h2>{{bike.title}}</h2>
+            <p >{{bike.desc}}</p>
+            <h2>{{bike.price}}</h2>
+            <p >{{bike.location}}</p>
+            <button *ngIf="bike._user == user._id" (click)="delete(bike._id)" class="btn btn-danger">Delete</button>
+            <button *ngIf="bike._user != user._id" (click)="contact(bike._user)" class="btn btn-info">Contact</button>
+        </div>
+      </div>
+</div>

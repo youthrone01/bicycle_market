@@ -1,0 +1,62 @@
+
+<div>
+  <div class="row">    
+      <h3 class="text-primary" >Bike of the day!</h3>
+      <div class="border">
+        <div class="d-inline-block col-xs-3">
+        <img src="{{bike?.imgurl}}"></div>
+        <div class="d-inline-block col-xs-5">
+          <h1>{{bike?.title}}</h1>
+          <p>{{bike?.desc}}</p>
+        </div>
+        <div class="d-inline-block col-xs-3">
+          <h1>{{bike?.price}}</h1>
+          <p>{{bike?.location}}</p>
+        </div>
+      </div>    
+  </div><br><br>
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-5">
+        <form (submit)="login()" #formData2 = "ngForm">
+            <div class="form-group">
+              <label for="email">Email address:</label>
+              <input type="email" [(ngModel)]="login_user.email" required pattern="[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]*\.([a-z]{2,4})" #login_email="ngModel" class="form-control" name="email">
+            </div>{{login_email.errors | json}}
+            <div class="form-group">
+              <label for="pwd">Password:</label>
+              <input type="password" [(ngModel)]="login_user.password" required minlength="9" #login_password="ngModel" class="form-control" name="pwd">
+            </div>{{login_password.errors | json}}<br>
+            <h3 class="text-danger" *ngIf="err_message.login != ''">{{err_message.login}}</h3>
+            <button type="submit" [disabled]="!formData2.valid" class="btn btn-info">Login</button>
+          </form>
+    </div>
+    <div class="col-md-5">
+        <form (submit)="create()" #formData1 = "ngForm">
+            <div class="form-group">
+              <label for="first_name">First Name:</label>
+              <input type="text" [(ngModel)]="new_user.first_name" required minlength="3" #first_name="ngModel" class="form-control" name="first_name">
+            </div>{{first_name.errors | json}}
+            <div class="form-group">
+              <label for="last_name">Last Name:</label>
+              <input type="text" [(ngModel)]="new_user.last_name" required minlength="3" #last_name="ngModel" class="form-control" name="last_name">
+            </div>{{last_name.errors | json}}
+            <div class="form-group">
+              <label for="email">Email address:</label>
+              <input type="email" [(ngModel)]="new_user.email" required pattern="[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]*\.([a-z]{2,4})" #email="ngModel" class="form-control" name="email">
+            </div>{{email.errors | json}}
+            <div class="form-group">
+              <label for="pwd">Password:</label>
+              <input type="password" [(ngModel)]="new_user.password" required minlength="9" #password="ngModel" class="form-control" name="pwd">
+            </div>{{password.errors | json}}
+            <div class="form-group">
+              <label for="pw_confirm">Password Confirmation:</label>
+              <input type="password" [(ngModel)]="pass_confir" required minlength="9" #pw_confirm="ngModel" pattern="{{new_user.password}}" class="form-control" name="pw_confirm">
+            </div>{{pw_confirm.errors | json}}<br>
+            <h3 class="text-danger" *ngIf="err_message.email != ''">{{err_message.email}}</h3>
+            <button type="submit" [disabled]="!formData1.valid" class="btn btn-primary">Register</button>
+          </form>
+    </div>
+    
+  </div>
+</div>

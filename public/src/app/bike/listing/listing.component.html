@@ -1,0 +1,42 @@
+<div class="row">
+<h2>Create Listing</h2>
+<form (submit)="create()" #formData3 = "ngForm">
+  <img src="{{new_bike.imgurl}}">
+  Image URL:<input type='url' required [(ngModel)]="new_bike.imgurl" 
+  #img="ngModel" name="image">{{img.errors | json}}<br>
+  Title: <input type="text" required minlength="5" [(ngModel)]="new_bike.title"
+  #title="ngModel" name="title">{{title.errors | json}}<br>
+  Price: <input type="number" required min="5" [(ngModel)]="new_bike.price"
+  #price="ngModel" name="price">{{price.errors | json}}<br>
+  Location: <input type="text" required  [(ngModel)]="new_bike.location"
+  #location="ngModel" name="location">{{location.errors | json}}<br>
+  Description:
+  <textarea rows="5" cols="25" required  [(ngModel)]="new_bike.desc" 
+  #desc="ngModel" name="desc"></textarea>{{desc.errors | json}}<br>
+  <button type="submit" [disabled]="!formData3.valid" class="btn btn-info">Create</button>
+</form>
+</div>
+<br>
+<div class="row">
+  <h2>Edit/Delete Listings</h2>
+  <div *ngIf="my_bikes" class="bikes">
+    <div *ngFor="let bike of my_bikes; let i = index">
+        <form (submit)="update(bike._id, bike)" #formData4 = "ngForm">
+            <img src="{{bike.imgurl}}">
+            Image URL:<input type='url' required [(ngModel)]="bike.imgurl" 
+            #img="ngModel" name="image">{{img.errors | json}}<br>
+            Title: <input type="text" required minlength="5" [(ngModel)]="bike.title"
+            #title="ngModel" name="title">{{title.errors | json}}<br>
+            Price: <input type="number" required min="5" [(ngModel)]="bike.price"
+            #price="ngModel" name="price">{{price.errors | json}}<br>
+            Location: <input type="text" required  [(ngModel)]="bike.location"
+            #location="ngModel" name="location">{{location.errors | json}}<br>
+            Description:
+            <textarea rows="5" cols="25" required  [(ngModel)]="bike.desc" 
+            #desc="ngModel" name="desc"></textarea>{{desc.errors | json}}<br>
+            <button type="submit" [disabled]="!formData4.valid" class="btn btn-info">Update</button>
+          </form>
+          <button (click)="delete(bike._id)" class="btn btn-danger">Delete</button> <br><hr>
+    </div>
+  </div>
+</div>

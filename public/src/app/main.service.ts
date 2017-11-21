@@ -1,0 +1,122 @@
+import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
+
+@Injectable()
+export class MainService {
+  user=null;
+  constructor(private _http:Http) { }
+
+  createUser(user, callback){
+    this._http.post("/users", user).subscribe(
+      (res)=>{
+        console.log('success 1');
+        callback(res.json());
+        if(res.json() == "success"){
+          this.user = user;
+          console.log(this.user);
+        }
+      },
+      (error)=>{
+        console.log("error 1 ");
+      }
+    )
+  }
+  loginUser(user, callback){
+    this._http.post('/login',user).subscribe(
+      (res)=>{
+        console.log('success 2');
+        callback(res.json());
+        console.log(res.json().error);
+        if(res.json().error == undefined){
+          this.user = res.json();
+          console.log(this.user);
+        }
+      },
+      (error)=>{
+        console.log("error 2 ");
+      }
+    )
+  }
+
+  createBike(bike, callback){
+    this._http.post('/bikes',{bike:bike, id:this.user._id}).subscribe(
+      (res)=>{
+        console.log('success 3');
+        callback(res.json());
+      },
+      (error)=>{
+        console.log("error 3 ");
+      }
+    )
+  }
+
+  getmybikes(callback){
+    this._http.get('/bikes/user/'+this.user._id).subscribe(
+      (res)=>{
+        console.log('success 4');
+        callback(res.json());
+      },
+      (error)=>{
+        console.log("error 4 ");
+      }
+    )
+  }
+
+  updateBike(id, bike, callback){
+    this._http.put('/bikes/'+id, bike).subscribe(
+      (res)=>{
+        callback(res.json());
+      },
+      (error)=>{
+        console.log("error 5 ");
+      }
+    )
+  }
+  deleteBike(id, callback){
+    this._http.delete('/bikes/'+id).subscribe(
+      (res)=>{
+        console.log('success 6');
+        callback(res.json());
+      },
+      (error)=>{
+        console.log("error 6 ");
+      }
+    )
+  }
+
+  getAllBikes(callback){
+    this._http.get('/bikes').subscribe(
+      (res)=>{
+        console.log('success 7');
+        callback(res.json());
+      },
+      (error)=>{
+        console.log("error 7");
+      }
+    )
+  }
+  getContact(id, callback){
+    this._http.get('/users/'+id).subscribe(
+      (res)=>{
+        console.log('success 8');
+        callback(res.json());
+      },
+      (error)=>{
+        console.log("error 8");
+      }
+    )
+  }
+
+  searchBike(search,callback){
+    this._http.post('/bikes/search',{search:search}).subscribe(
+      (res)=>{
+        console.log('success 9');
+        callback(res.json());
+      },
+      (error)=>{
+        console.log("error 9");
+      }
+    )
+  }
+
+}
