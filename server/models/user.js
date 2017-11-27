@@ -16,6 +16,7 @@ var BikeSchema = mongoose.Schema({
 	location:{type: String, require: true},
 	imgurl: {type: String, require: true},
 	_user: {type: Schema.Types.ObjectId, ref: 'User'},
+	comments: [{type: Schema.Types.ObjectId, ref: 'Comment'}],
 },{timestamps: true})
 
 var LoginSchema = mongoose.Schema({
@@ -24,6 +25,16 @@ var LoginSchema = mongoose.Schema({
 	allowed_time:{type:Date},
 },{timestamps: true})
 
-mongoose.model('User',UserSchema)
-mongoose.model('Bike',BikeSchema)
-mongoose.model('Login',LoginSchema)
+var CommentSchena = mongoose.Schema({
+	user:{type: String, require: true},
+	title:{type: String, require: true},
+	content:{type:String},
+	likes:{type:Number, default:0},
+	_bike: {type: Schema.Types.ObjectId, ref: 'Bike'},
+},{timestamps: true})
+
+
+mongoose.model('User',UserSchema),
+mongoose.model('Bike',BikeSchema),
+mongoose.model('Login',LoginSchema),
+mongoose.model('Comment',CommentSchena)

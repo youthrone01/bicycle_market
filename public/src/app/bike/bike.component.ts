@@ -8,7 +8,10 @@ import { Router } from "@angular/router";
   styleUrls: ['./bike.component.css']
 })
 export class BikeComponent implements OnInit {
-  user;
+  user={
+    first_name:"",
+    last_last:"",
+  };
   constructor(private _mainService:MainService, private _router:Router) {
     this.user = this._mainService.user;
    }

@@ -119,4 +119,40 @@ export class MainService {
     )
   }
 
+  getallcomments(id, callback){
+    this._http.get('/comments/bikes/'+id).subscribe(
+      (res)=>{
+        console.log('success 10');
+        callback(res.json());
+      },
+      (error)=>{
+        console.log("error 10");
+      }
+    )
+  }
+
+  createComment(info,callback){
+    this._http.post('/comments', info).subscribe(
+      (res)=>{
+        console.log('success 11');
+        callback(res.json());
+      },
+      (error)=>{
+        console.log("error 11");
+      }
+    )
+  }
+
+  updateLikes(info, callback){
+    this._http.post('/comments/likes', info).subscribe(
+      (res)=>{
+        console.log('success 12');
+        callback(res.json());
+      },
+      (error)=>{
+        console.log("error 12");
+      }
+    )
+  }
+
 }

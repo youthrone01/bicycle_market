@@ -12,6 +12,7 @@ Search: <input (keyup)="searchBike()" name="search" id="search"
             <p >{{bike.location}}</p>
             <button *ngIf="bike._user == user._id" (click)="delete(bike._id)" class="btn btn-danger">Delete</button>
             <button *ngIf="bike._user != user._id" (click)="contact(bike._user)" class="btn btn-info">Contact</button>
+            <button (click)="comment(bike._id)" class="btn btn-primary">Comment</button>
         </div>
       </div>
 </div>

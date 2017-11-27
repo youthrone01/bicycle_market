@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { BikeComponent } from './bike/bike.component';
 import { BrowseComponent } from './bike/browse/browse.component';
 import { ListingComponent } from './bike/listing/listing.component';
+import { CommentComponent } from './comment/comment.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: LoginComponent },
@@ -12,6 +13,7 @@ const routes: Routes = [
       { path: 'browse', component: BrowseComponent },
       { path: 'listing', component: ListingComponent },
   ] },
+  {path: 'comment/bikes/:id', component: CommentComponent},
 
   { path: '**', redirectTo: '' },
 ];

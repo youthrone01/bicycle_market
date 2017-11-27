@@ -10,6 +10,7 @@ import { ListingComponent } from './bike/listing/listing.component';
 import { FormsModule } from '@angular/forms'; // <-- Import FormsModule
 import { HttpModule } from '@angular/http'; // 
 import { MainService } from './main.service';
+import { CommentComponent } from './comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { MainService } from './main.service';
     LoginComponent,
     BikeComponent,
     BrowseComponent,
-    ListingComponent
+    ListingComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,

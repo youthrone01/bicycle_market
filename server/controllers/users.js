@@ -13,6 +13,9 @@ module.exports = {
 					res.json({error:"Email is invalid!"});
 				}else{
 					Login.findOne({email: req.body.email }, function(err, logined){
+						if(logined == null ){
+							console.log("login error find");
+						}else{
 						let now = new Date();
 						
 						if(logined.allowed_time < now){
@@ -38,6 +41,7 @@ module.exports = {
 							logined.attempt = 0;
 							logined.save(function(err){});							
 						}
+					}
 					})
 					// if(user.password == req.body.password){
 					// 	res.json(user);

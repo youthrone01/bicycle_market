@@ -40,6 +40,10 @@ export class BrowseComponent implements OnInit {
     })
   }
 
+  comment(id){
+    this._router.navigate(['comment','bikes', id]);
+  }
+
   ngOnInit() {
     if(this._mainService.user == null){
       this._router.navigate(['']);
