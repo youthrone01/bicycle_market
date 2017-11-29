@@ -1,23 +1,26 @@
 
 <div class="border-bottom">
-  <h2>Hello {{user.first_name}} {{user.last_name}}</h2>
+  <h2>Hello {{user?.first_name}} {{user?.last_name}}</h2>
   <a class="btn btn-primary" [routerLink]="['/','bike','browse']">Browse</a>
   <a class="btn btn-primary" [routerLink]="['/','bike','listing']">My Listing</a>
   <button class="btn btn-danger" (click)="logout()">Log Off</button>
   </div>
-<div class="row">    
-  <div class="border">
-    <div class="d-inline-block col-xs-3">
-    <img src="{{the_bike?.imgurl}}"></div>
-    <div class="d-inline-block col-xs-5">
-      <h1 class="text-primary" >{{the_bike?.title}}</h1>
-      <p>{{the_bike?.desc}}</p>
-    </div>
-    <div class="d-inline-block col-xs-3">
-      <h1>{{the_bike?.price}}</h1>
-      <p>{{the_bike?.location}}</p>
-    </div>
-  </div>    
+<div class="row well">    
+    <div class="col-md-3">
+        <img src="{{the_bike?.imgurl}}">
+      </div>
+      <div class="col-md-6" style="word-wrap: break-word;">
+        <h3>
+          <strong> {{the_bike?.title}}</strong>
+        </h3>
+        <p class="font-italic">Details: {{the_bike?.desc}}</p>
+      </div>
+      <div class="col-md-3">
+        <h3>
+          <strong>Price: {{the_bike?.price}}</strong>
+        </h3>
+        <p>Location: {{the_bike?.location}}</p>
+      </div>
 </div><br><br>
 
 <div class="row">
@@ -35,12 +38,12 @@
 </div>
 
 <div class="row">
-  <div *ngFor="let comment of all_comments">
+  <div *ngFor="let comment of all_comments" class="well">
     <h3>User: {{comment.user}}</h3>
     <h3>Title: {{comment.title}}</h3>
     <p>Detail: {{comment.content}}</p>
     <p>likes: {{comment.likes}} </p>
-    <button (click)="like('y', comment._id)">Like It</button>
-    <button (click)="like('n', comment._id)">Dislike It</button>
+    <button class="btn-info" (click)="like('y', comment._id)">Like It</button>
+    <button class="btn-danger" (click)="like('n', comment._id)">Dislike It</button>
   </div>
 </div>

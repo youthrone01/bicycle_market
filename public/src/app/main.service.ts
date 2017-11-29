@@ -4,16 +4,20 @@ import { Http } from '@angular/http';
 @Injectable()
 export class MainService {
   user=null;
-  constructor(private _http:Http) { }
+  constructor(private _http:Http) {
+    if(localStorage.user != undefined){
+      this.user = JSON.parse( localStorage.user);
+    }
+   }
 
   createUser(user, callback){
     this._http.post("/users", user).subscribe(
       (res)=>{
         console.log('success 1');
         callback(res.json());
-        if(res.json() == "success"){
-          this.user = user;
-          console.log(this.user);
+        if(res.json().message == "success"){
+          this.user = res.json().user;
+          localStorage.setItem('user',JSON.stringify(res.json().user));
         }
       },
       (error)=>{
@@ -26,10 +30,9 @@ export class MainService {
       (res)=>{
         console.log('success 2');
         callback(res.json());
-        console.log(res.json().error);
         if(res.json().error == undefined){
           this.user = res.json();
-          console.log(this.user);
+          localStorage.setItem('user',JSON.stringify(res.json()));
         }
       },
       (error)=>{

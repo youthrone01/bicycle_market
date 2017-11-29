@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MainService } from '../../main.service';
 import { Router } from "@angular/router";
 
+
 @Component({
   selector: 'app-listing',
   templateUrl: './listing.component.html',
@@ -17,6 +18,8 @@ export class ListingComponent implements OnInit {
   };
   my_bikes;
   err_message="";
+
+  
   constructor(private _mainService:MainService, private _router:Router) { }
 
   create(){
@@ -66,7 +69,7 @@ export class ListingComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(this._mainService.user == null){
+    if(localStorage.user == undefined){
       this._router.navigate(['']);
     }else{
       this._mainService.getmybikes((res)=>{

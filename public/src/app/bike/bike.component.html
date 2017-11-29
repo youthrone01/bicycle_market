@@ -1,5 +1,5 @@
 <div class="border-bottom">
-<h2>Hello {{user.first_name}} {{user.last_name}}</h2>
+<h2>Hello {{user?.first_name}} {{user?.last_name}}</h2>
 <a class="btn btn-primary" [routerLink]="['/','bike','browse']">Browse</a>
 <a class="btn btn-primary" [routerLink]="['/','bike','listing']">My Listing</a>
 <button class="btn btn-danger" (click)="logout()">Log Off</button>

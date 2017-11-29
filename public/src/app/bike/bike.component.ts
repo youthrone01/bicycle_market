@@ -10,7 +10,7 @@ import { Router } from "@angular/router";
 export class BikeComponent implements OnInit {
   user={
     first_name:"",
-    last_last:"",
+    last_name:"",
   };
   constructor(private _mainService:MainService, private _router:Router) {
     this.user = this._mainService.user;
@@ -18,9 +18,10 @@ export class BikeComponent implements OnInit {
   logout(){
     this._mainService.user = null;
     this._router.navigate(['']);
+    localStorage.removeItem('user');
   }
   ngOnInit() {
-    if(this._mainService.user == null){
+    if(localStorage.user == undefined){
       this._router.navigate(['']);
     }
   }

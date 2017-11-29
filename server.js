@@ -4,9 +4,10 @@ var path = require("path");
 var app = express();
 var bodyParser = require("body-parser");
 var session = require('express-session');
-app.listen(8000, function() {
- console.log("listening on port 8000");
-});
+var server = app.listen(8000, function() {
+    console.log("listening on port 8000");
+   });
+var io = require('socket.io').listen(server);
 
 
 app.use(bodyParser.urlencoded({extended:true}));
@@ -19,3 +20,15 @@ app.use(express.static(path.join(__dirname, './public/dist')));
 
 require('./server/config/mongoose.js');
 require('./server/config/routes.js')(app);
+
+var users = [];
+io.sockets.on('connection', function (socket) {
+    console.log("Client/socket is connected!");
+    console.log("Client/socket id is: ", socket.id);
+    // all the server socket code goes in here
+    socket.on('login', function(data){
+        users.push(data.user);
+        //console.log(users);
+        socket.broadcast.emit('online', {users:users});
+    })
+  })

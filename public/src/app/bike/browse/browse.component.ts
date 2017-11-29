@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MainService } from '../../main.service';
 import { Router } from "@angular/router";
+import io from "socket.io-client";
 
 @Component({
   selector: 'app-browse',
@@ -11,6 +12,10 @@ export class BrowseComponent implements OnInit {
   user;
   all_bikes;
   new_search = "";
+  login_users = [];
+
+  private url = 'http://localhost:8000';
+  private socket;
   constructor(private _mainService:MainService, private _router:Router) { }
 
 
@@ -45,12 +50,19 @@ export class BrowseComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(this._mainService.user == null){
+    if(localStorage.user == undefined){
       this._router.navigate(['']);
     }else{
-      this.user = this._mainService.user;
+      this.user = JSON.parse( localStorage.user);
       this._mainService.getAllBikes((res)=>{
         this.all_bikes = res;
+      })
+      this.socket = io.connect(this.url);
+      this.socket.emit('login',{user: this.user})
+      this.socket.on('online', function(data){
+        this.login_users = data.users;
+        console.log(this.login_users);
+        console.log("-----------------");
       })
     }
   }

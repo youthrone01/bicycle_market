@@ -20,7 +20,9 @@ export class CommentComponent implements OnInit {
 
   constructor(private _mainService:MainService, private _router:Router, private _route: ActivatedRoute) { 
     this.user = this._mainService.user;
+    if(this.user != null){
     this.comment.user = this.user.first_name +" "+ this.user.last_name;
+    }
   }
 
   create(){
@@ -59,9 +61,10 @@ export class CommentComponent implements OnInit {
   logout(){
     this._mainService.user = null;
     this._router.navigate(['']);
+    localStorage.removeItem('user');
   }
   ngOnInit() {
-    if(this._mainService.user == null){
+    if(localStorage.user == undefined){
       this._router.navigate(['']);
     }else{
       this._route.paramMap.subscribe((params)=>{

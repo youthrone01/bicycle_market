@@ -8,13 +8,14 @@ module.exports = {
 		User.findOne({email: req.body.email }, function(err, user){
 			if(err){
 				console.log("login error find");
+				console.log(err);
 			}else{
 				if(user == null){
 					res.json({error:"Email is invalid!"});
 				}else{
 					Login.findOne({email: req.body.email }, function(err, logined){
 						if(logined == null ){
-							console.log("login error find");
+							console.log("logined error find");
 						}else{
 						let now = new Date();
 						
@@ -60,13 +61,12 @@ module.exports = {
 			}else{
 				if(user == null){
 					var user = new User(req.body);
-					user.save(function(err){
+					user.save(function(err,user){
 						if(err){
 							console.log(err);
 							res.json(err);
 						}else{
-						console.log("good");
-						res.json("success");
+						res.json({message:"success", user:user});
 						let d = new Date();
 						var logined = new Login({email: req.body.email, attempt:0, allowed_time: d});
 						logined.save(function(err){
@@ -95,7 +95,7 @@ module.exports = {
 				res.json(user);
 			}
 		})
-	}
+	},
 	// destroy: function(req,res){
 	// 	Player.remove({_id: req.params.id},function(err){
 	// 		if(err){

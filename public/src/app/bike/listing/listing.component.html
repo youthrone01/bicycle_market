@@ -1,42 +1,58 @@
-<div class="row">
 <h2>Create Listing</h2>
-<form (submit)="create()" #formData3 = "ngForm">
-  <img src="{{new_bike.imgurl}}">
-  Image URL:<input type='url' required [(ngModel)]="new_bike.imgurl" 
-  #img="ngModel" name="image">{{img.errors | json}}<br>
-  Title: <input type="text" required minlength="5" [(ngModel)]="new_bike.title"
-  #title="ngModel" name="title">{{title.errors | json}}<br>
-  Price: <input type="number" required min="5" [(ngModel)]="new_bike.price"
-  #price="ngModel" name="price">{{price.errors | json}}<br>
-  Location: <input type="text" required  [(ngModel)]="new_bike.location"
-  #location="ngModel" name="location">{{location.errors | json}}<br>
-  Description:
-  <textarea rows="5" cols="25" required  [(ngModel)]="new_bike.desc" 
-  #desc="ngModel" name="desc"></textarea>{{desc.errors | json}}<br>
-  <button type="submit" [disabled]="!formData3.valid" class="btn btn-info">Create</button>
-</form>
+<div class="row well">
+  <div class="col-md-3">
+    <img src="{{new_bike.imgurl}}">
+  </div>
+  <form (submit)="create()" #formData3="ngForm" class="col-md-9">
+    <strong>Image URL:</strong>
+    <input style="width: 350px;" type='url' required [(ngModel)]="new_bike.imgurl" #img="ngModel" name="image">{{img.errors | json}}
+    <br>
+    <strong>Title:</strong>
+    <input style="width: 400px;" type="text" required minlength="5" [(ngModel)]="new_bike.title" #title="ngModel" name="title">{{title.errors | json}}
+    <br>
+    <strong>Price:</strong>
+    <input style="width: 400px;" type="number" required min="5" [(ngModel)]="new_bike.price" #price="ngModel" name="price">{{price.errors | json}}
+    <br>
+    <strong>Location:</strong>
+    <input style="width: 370px;" type="text" required [(ngModel)]="new_bike.location" #location="ngModel" name="location">{{location.errors | json}}
+    <br>
+    <strong>Description:</strong>
+    <br>
+    <textarea rows="3" cols="75" required [(ngModel)]="new_bike.desc" #desc="ngModel" name="desc"></textarea>{{desc.errors | json}}
+    <br>
+    <button type="submit" [disabled]="!formData3.valid" class="btn btn-info">Create</button>
+  </form>
 </div>
 <br>
 <div class="row">
   <h2>Edit/Delete Listings</h2>
   <div *ngIf="my_bikes" class="bikes">
-    <div *ngFor="let bike of my_bikes; let i = index">
-        <form (submit)="update(bike._id, bike)" #formData4 = "ngForm">
-            <img src="{{bike.imgurl}}">
-            Image URL:<input type='url' required [(ngModel)]="bike.imgurl" 
-            #img="ngModel" name="image">{{img.errors | json}}<br>
-            Title: <input type="text" required minlength="5" [(ngModel)]="bike.title"
-            #title="ngModel" name="title">{{title.errors | json}}<br>
-            Price: <input type="number" required min="5" [(ngModel)]="bike.price"
-            #price="ngModel" name="price">{{price.errors | json}}<br>
-            Location: <input type="text" required  [(ngModel)]="bike.location"
-            #location="ngModel" name="location">{{location.errors | json}}<br>
-            Description:
-            <textarea rows="5" cols="25" required  [(ngModel)]="bike.desc" 
-            #desc="ngModel" name="desc"></textarea>{{desc.errors | json}}<br>
-            <button type="submit" [disabled]="!formData4.valid" class="btn btn-info">Update</button>
-          </form>
-          <button (click)="delete(bike._id)" class="btn btn-danger">Delete</button> <br><hr>
+    <div *ngFor="let bike of my_bikes; let i = index" class="row well">
+      <div class="col-md-3 text-center">
+        <img src="{{bike.imgurl}}">
+        <button (click)="delete(bike._id)" class="btn btn-danger">Delete</button>
+      </div>
+      <div class="col-md-9">
+        <form (submit)="update(bike._id, bike)" #formData4="ngForm">
+          <strong>Image URL:</strong>
+          <input style="width: 350px;" type='url' required [(ngModel)]="bike.imgurl" #img="ngModel" name="image">{{img.errors | json}}
+          <br>
+          <strong>Title:</strong>
+          <input style="width: 400px;" type="text" required minlength="5" [(ngModel)]="bike.title" #title="ngModel" name="title">{{title.errors | json}}
+          <br>
+          <strong>Price:</strong>
+          <input style="width: 400px;" type="number" required min="5" [(ngModel)]="bike.price" #price="ngModel" name="price">{{price.errors | json}}
+          <br>
+          <strong>Location:</strong>
+          <input style="width: 370px;" type="text" required [(ngModel)]="bike.location" #location="ngModel" name="location">{{location.errors | json}}
+          <br>
+          <strong>Description:</strong>
+          <br>
+          <textarea rows="3" cols="75" required [(ngModel)]="bike.desc" #desc="ngModel" name="desc"></textarea>{{desc.errors | json}}
+          <br>
+          <button type="submit" [disabled]="!formData4.valid" class="btn btn-info">Update</button>
+        </form>        
+      </div>
     </div>
   </div>
 </div>
