@@ -1,4 +1,9 @@
- <h3>Currently Login Users: {{login_users.length}}</h3>
+<div class="w3-dropdown-hover pull-right">
+  <button class="w3-button w3-green w3-large">Currently Login Users: {{login_users.length}}</button>
+  <div class="w3-dropdown-content w3-bar-block w3-border">
+    <span class="w3-bar-item w3-button w3-blue w3-row" *ngFor="let user of login_users" >{{user.info.first_name}} {{user.info.last_name}}</span>
+ </div>
+</div>
  <br>
  <h3>Search:
 <input style="width: 750px;" (keyup)="searchBike()" name="search" id="search" [(ngModel)]="new_search"></h3>
@@ -30,3 +35,4 @@
     </div>
   </div>
 </div>
+

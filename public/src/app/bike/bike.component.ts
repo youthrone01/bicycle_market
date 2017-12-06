@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MainService } from './../main.service';
 import { Router } from "@angular/router";
-import { Socket } from 'net';
+
 
 @Component({
   selector: 'app-bike',
