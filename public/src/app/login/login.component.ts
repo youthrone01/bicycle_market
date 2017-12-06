@@ -3,7 +3,7 @@ import { MainService } from "./../main.service";
 import { Router } from "@angular/router";
 declare var $: any;
 declare var jquery: any;
-import io from "socket.io-client";
+// import io from "socket.io-client";
 
 @Component({
   selector: "app-login",
@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
     email: "",
     login: ""
   };
+  socket;
   
   create() {
     this._mainService.createUser(this.new_user, res => {
@@ -68,6 +69,7 @@ export class LoginComponent implements OnInit {
       var index = Math.floor(Math.random() * res.length);
       this.bike = res[index];
     });
+    this.socket = this._mainService.socket
     /////////////////////////////////////
     $(function() {
       

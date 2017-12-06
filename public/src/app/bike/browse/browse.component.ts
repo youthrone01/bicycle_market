@@ -13,10 +13,13 @@ export class BrowseComponent implements OnInit {
   all_bikes;
   new_search = "";
   login_users = [];
-
-  private url = 'http://localhost:8000';
-  private socket;
-  constructor(private _mainService:MainService, private _router:Router) { }
+  socket;
+  // socket = io('http://localhost:8000');
+  
+  
+  constructor(private _mainService:MainService, private _router:Router) {
+    this.socket = this._mainService.socket
+  }
 
 
   searchBike(){
@@ -31,6 +34,7 @@ export class BrowseComponent implements OnInit {
     }
   }
   contact(id){
+    console.log("dsfsdfdsf",this.login_users)
     this._mainService.getContact(id, (res)=>{
       let info="Name: "+res.first_name+" "+res.last_name+"\n Email: "+res.email
       alert(info);
@@ -57,13 +61,15 @@ export class BrowseComponent implements OnInit {
       this._mainService.getAllBikes((res)=>{
         this.all_bikes = res;
       })
-      this.socket = io.connect(this.url);
-      this.socket.emit('login',{user: this.user})
-      this.socket.on('online', function(data){
-        this.login_users = data.users;
-        console.log(this.login_users);
-        console.log("-----------------");
-      })
+      this._mainService.login_users.subscribe(
+        (data) =>{
+          this.login_users = data;
+        }
+      )
+      if(this._mainService.islogined == false)
+      this.socket.emit('login',{user: this.user});
+      this._mainService.islogined = true;
+      
     }
   }
 

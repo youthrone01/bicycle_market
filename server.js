@@ -27,8 +27,20 @@ io.sockets.on('connection', function (socket) {
     console.log("Client/socket id is: ", socket.id);
     // all the server socket code goes in here
     socket.on('login', function(data){
-        users.push(data.user);
-        //console.log(users);
-        socket.broadcast.emit('online', {users:users});
+        var user = {
+            info: data.user,
+            id: socket.id,
+        }
+        users.push(user);
+        io.emit('online', {users:users});
+    })
+
+    socket.on('disconnect', function(){
+        console.log("dis id is: ", socket.id);
+        var rest_user = users.filter(function(el){
+            return el.id != socket.id;
+        })
+        users = rest_user;
+        io.emit('online',{users:users});
     })
   })

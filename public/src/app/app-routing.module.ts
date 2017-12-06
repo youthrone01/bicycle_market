@@ -7,7 +7,7 @@ import { ListingComponent } from './bike/listing/listing.component';
 import { CommentComponent } from './comment/comment.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', component: LoginComponent },
+  { path: '', pathMatch: 'full', component: LoginComponent, outlet:'login'},
   
   { path: 'bike', component: BikeComponent, children:[
       { path: 'browse', component: BrowseComponent },

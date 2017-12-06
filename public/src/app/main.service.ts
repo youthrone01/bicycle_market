@@ -1,9 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import io from "socket.io-client";
+import {BehaviorSubject} from 'Rxjs';
 
 @Injectable()
 export class MainService {
   user=null;
+  socket;
+  islogined = false;
+  if_socket_disconnect = false;
+  login_users: BehaviorSubject<any []> = new  BehaviorSubject([])
   constructor(private _http:Http) {
     if(localStorage.user != undefined){
       this.user = JSON.parse( localStorage.user);
@@ -17,7 +23,8 @@ export class MainService {
         callback(res.json());
         if(res.json().message == "success"){
           this.user = res.json().user;
-          localStorage.setItem('user',JSON.stringify(res.json().user));
+          localStorage.setItem('user',JSON.stringify(res.json().user));  
+          this.reconnect();
         }
       },
       (error)=>{
@@ -33,6 +40,7 @@ export class MainService {
         if(res.json().error == undefined){
           this.user = res.json();
           localStorage.setItem('user',JSON.stringify(res.json()));
+          this.reconnect();
         }
       },
       (error)=>{
@@ -157,5 +165,14 @@ export class MainService {
       }
     )
   }
+  
+  update_loginusers(data){
+    this.login_users.next(data);
+  }
 
+  reconnect(){
+    if(this.if_socket_disconnect){
+      this.socket = io('http://localhost:8000');
+    }
+  }
 }
